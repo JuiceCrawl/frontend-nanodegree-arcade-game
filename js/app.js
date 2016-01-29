@@ -37,9 +37,9 @@ Enemy.prototype.update = function(dt) {
 
     //detect whether player and enemy overlap
     if (this.x < playerX + playerWidth && 
-        this.x + this.width > playerX && // hit from left side
-        this.y + 80 < playerY + playerHeight && //
-        this.height + this.y + 80 > playerY) {
+        this.x + this.width > playerX && 
+        this.y + 80 < playerY + playerHeight &&
+        this.y + this.height + 80 > playerY) {
         
         // if so, trigger a loss and move Player to starting position
         player.reset("lose");
