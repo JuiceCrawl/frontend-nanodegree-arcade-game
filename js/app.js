@@ -14,9 +14,8 @@ var Enemy = function(row, speed) {
     this.y = 68 + (row * 83);
     this.speed = speed;
 
-    this.width = 100;
+    this.width = 101;
     this.height = 60;
-
 };
 
 // Draw the enemy on the screen
@@ -28,24 +27,25 @@ Enemy.prototype.render = function() {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
-
-    
     
     var playerX = player.getX() + 20;
     var playerY = player.getY() + 60;
     var playerWidth = player.getWidth();
     var playerHeight = player.getHeight();
 
-    //detect whether player and enemy rectangles overlap
-    if (this.x < playerX + playerWidth &&
-        this.x + this.width > playerX &&
-        this.y + 80 < playerY + playerHeight &&
-        this.height + this.y + 80 > playerY) {
-        
-        // if so, trigger a loss and move Player to starting position
+    //detect whether player and enemy overlap
+    if (this.x + this.width > playerX &&
+        this.y + this.height + 80 > playerY) {
         player.reset("lose");
     }
-    
+    /* I think, for this program, we only need to check for one x and y vs checking for each corner 
+    since the player moves in a block grid and one hit covers all hits.
+    This program acounts for about 30px space below the image and the extra space above the 
+    image as well as the extra space on the players width (about 20 px blank spce on each size. 
+    The way we organize the dimensions in this program is confusing and could be improved. 
+    It might also make sense to extract the collision check to separate function but 
+    it has to be executed in this enemy.update since this is wehre we find the constant moving x of the bug.
+    We also had to make separate funciton get X Y for the player and might not need to do that for the heigh and width? */ 
 };
 
 
